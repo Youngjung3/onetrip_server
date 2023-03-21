@@ -24,8 +24,8 @@ app.use("/upload",express.static("upload"));
 app.get("/products", (req, res) => {
   models.Product.findAll({
 	// '참조컬럼','ASC'||'DESC'
-	order:[['count','DESC']],
-	attributes:["id","price","p_name","p_sdate","p_edate","p_country","p_area","trans","retrans","p_snum","p_enum","departure","redeparture","count","theme","imageUrl"]
+	order:[['id','ASC']],
+	attributes:["id","price","p_name","p_sdate","p_edate","p_country","p_area","trans","retrans","p_snum","p_enum","departure","redeparture","count","theme","image"]
   })
     .then((result) => {
       console.log("product 조회결과:", result);
@@ -58,7 +58,7 @@ app.get("/products/:id", (req, res) => {
 //상품생성데이터를  데이터베이스 추가
 app.post("/products", (req, res) => {
   const body = req.body;
-  const { p_name, price, p_sdate,p_edate,p_country,p_area,trans,retrans,p_snum,p_enum,departure,redeparture,count,theme,imageUrl} = body;
+  const { p_name, price, p_sdate,p_edate,p_country,p_area,trans,retrans,p_snum,p_enum,departure,redeparture,count,theme,image} = body;
   if (!p_name || !price || !p_country || !p_area || !departure || !redeparture || !trans || !retrans || !p_sdate || !p_edate || !count || !theme) {
     res.send("모든 필드를 입력해주세요");
   }
@@ -77,7 +77,7 @@ app.post("/products", (req, res) => {
     redeparture,
     count,
     theme,
-    imageUrl,
+    image,
   })
     .then((result) => {
       console.log("상품생성결과:", result);
@@ -96,7 +96,8 @@ app.post('/image',upload.single('image'),(req,res)=>{
   const file=req.file;
   console.log(file);
   res.send({
-    imageUrl:file.path
+    image:file.path
+    // imageUrl:file.path
   })
 })
 //app 실행
