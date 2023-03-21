@@ -4,7 +4,7 @@ const models = require("./models");
 const multer=require("multer");
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 8080;
 
 const upload=multer({
   storage:multer.diskStorage({
@@ -23,7 +23,8 @@ app.use("/upload",express.static("upload"));
 
 app.get("/products", (req, res) => {
   models.Product.findAll({
-	// '참조컬럼','ASC'||'DESC'
+    limit:4,
+	// 'ASC','DESC'
 	order:[['id','ASC']],
 	attributes:["id","price","p_name","p_sdate","p_edate","p_country","p_area","trans","retrans","p_snum","p_enum","departure","redeparture","count","theme","image"]
   })
@@ -39,7 +40,6 @@ app.get("/products", (req, res) => {
 
 app.get("/products/:id", (req, res) => {
   const params = req.params;
-  //const id=params.id;
   const { id } = params;
   models.Product.findOne({
     where: { id: id },
