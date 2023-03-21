@@ -19,12 +19,13 @@ const upload=multer({
 
 app.use(express.json());
 app.use(cors());
+app.use("/upload",express.static("upload"));
 
 app.get("/products", (req, res) => {
   models.Product.findAll({
 	// '참조컬럼','ASC'||'DESC'
 	order:[['count','DESC']],
-	attributes:["id","p_name","p_sdate","p_country","count","theme"]
+	attributes:["id","price","p_name","p_sdate","p_edate","p_country","p_area","trans","retrans","p_snum","p_enum","departure","redeparture","count","theme","imageUrl"]
   })
     .then((result) => {
       console.log("product 조회결과:", result);
@@ -55,32 +56,49 @@ app.get("/products/:id", (req, res) => {
     });
 });
 //상품생성데이터를  데이터베이스 추가
-// app.post("/products", (req, res) => {
-//   const body = req.body;
-//   const { name, description, price, seller } = body;
-//   if (!name || !description || !price || !seller) {
-//     res.send("모든 필드를 입력해주세요");
-//   }
-//   models.Product.create({
-//     name,
-//     description,
-//     price,
-//     seller,
-//   })
-//     .then((result) => {
-//       console.log("상품생성결과:", result);
-//       res.send({ result });
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//       //res.send("상품업로드에 문제가 발생했습니다");
-//     });
-// });
+app.post("/products", (req, res) => {
+  const body = req.body;
+  const { p_name, price, p_sdate,p_edate,p_country,p_area,trans,retrans,p_snum,p_enum,departure,redeparture,count,theme,imageUrl} = body;
+  if (!p_name || !price || !p_country || !p_area || !departure || !redeparture || !trans || !retrans || !p_sdate || !p_edate || !count || !theme) {
+    res.send("모든 필드를 입력해주세요");
+  }
+  models.Product.create({
+    p_name,
+    price,
+    p_sdate,
+    p_edate,
+    p_country,
+    p_area,
+    trans,
+    retrans,
+    p_snum,
+    p_enum,
+    departure,
+    redeparture,
+    count,
+    theme,
+    imageUrl,
+  })
+    .then((result) => {
+      console.log("상품생성결과:", result);
+      res.send({ result });
+    })
+    .catch((error) => {
+      console.error(error);
+      //res.send("상품업로드에 문제가 발생했습니다");
+    });
+});
 
-// app.post("/login", (req, res) => {
-//   res.send("로그인이 완료되었습니다");
-// });
-//
+app.post("/login", (req, res) => {
+  res.send("로그인이 완료되었습니다");
+});
+app.post('/image',upload.single('image'),(req,res)=>{
+  const file=req.file;
+  console.log(file);
+  res.send({
+    imageUrl:file.path
+  })
+})
 //app 실행
 app.listen(port, () => {
   console.log("OneTrip의 서버가 돌아가고 있습니다.");
