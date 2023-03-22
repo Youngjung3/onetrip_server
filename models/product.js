@@ -18,19 +18,19 @@ module.exports = (sequelize, DataTypes) => {
 			allowNull: false,
 		},
 		p_sdate: {
-			type: DataTypes.STRING(10),
+			type: DataTypes.STRING(30),
 			allowNull: false,
 		},
 		p_edate: {
-			type: DataTypes.STRING(10),
+			type: DataTypes.STRING(30),
 			allowNull: false,
 		},
 		p_snum: {
-			type: DataTypes.STRING(10),
+			type: DataTypes.STRING(20),
 			allowNull: true,
 		},
 		p_enum: {
-			type: DataTypes.STRING(10),
+			type: DataTypes.STRING(20),
 			allowNull: true,
 		},
 		trans: {
@@ -54,11 +54,11 @@ module.exports = (sequelize, DataTypes) => {
 			allowNull: false,
 		},
 		departure: {
-			type: DataTypes.STRING(10),
+			type: DataTypes.STRING(20),
 			allowNull: false,
 		},
 		redeparture: {
-			type: DataTypes.STRING(10),
+			type: DataTypes.STRING(20),
 			allowNull: false,
 		},
 		hotel:{

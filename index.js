@@ -13,9 +13,9 @@ const upload=multer({
     },
     filename:function(req,file,cb){
       cb(null,file.originalname);
-    }
+    },
   }),
-})
+});
 
 app.use(express.json());
 app.use(cors());
@@ -75,9 +75,6 @@ app.get("/products/:id", (req, res) => {
 app.post("/products", (req, res) => {
   const body = req.body;
   const { p_name, price, p_sdate,p_edate,p_country,p_area,trans,retrans,p_snum,p_enum,departure,redeparture,count,theme,image,hotel} = body;
-  if (!p_name || !price || !p_country || !p_area || !departure || !redeparture || !trans || !retrans || !p_sdate || !p_edate || !count || !theme) {
-    res.send("모든 필드를 입력해주세요");
-  }
   models.Product.create({
     p_name,
     price,
@@ -97,7 +94,7 @@ app.post("/products", (req, res) => {
     hotel,
   })
     .then((result) => {
-      console.log("상품생성결과:", result);
+      console.log("상품생성결과테스트:", result);
       res.send({ result });
     })
     .catch((error) => {
