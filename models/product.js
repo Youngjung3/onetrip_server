@@ -61,6 +61,10 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.STRING(10),
 			allowNull: false,
 		},
+		hotel:{
+			type: DataTypes.STRING(20),
+			allowNull: true,
+		}
 	});
   return product;
 };

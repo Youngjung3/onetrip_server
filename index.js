@@ -21,9 +21,9 @@ app.use(express.json());
 app.use(cors());
 app.use("/upload",express.static("upload"));
 
+
 app.get("/products", (req, res) => {
   models.Product.findAll({
-    limit:4,
 	// 'ASC','DESC'
 	order:[['id','ASC']],
 	attributes:["id","price","p_name","p_sdate","p_edate","p_country","p_area","trans","retrans","p_snum","p_enum","departure","redeparture","count","theme","image"]
