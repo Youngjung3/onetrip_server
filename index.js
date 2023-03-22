@@ -26,7 +26,23 @@ app.get("/products", (req, res) => {
   models.Product.findAll({
 	// 'ASC','DESC'
 	order:[['id','ASC']],
-	attributes:["id","price","p_name","p_sdate","p_edate","p_country","p_area","trans","retrans","p_snum","p_enum","departure","redeparture","count","theme","image"]
+	attributes:["id","price","p_name","p_sdate","p_edate","p_country","p_area","trans","retrans","p_snum","p_enum","departure","redeparture","count","theme","image","hotel"]
+  })
+    .then((result) => {
+      console.log("product 조회결과:", result);
+      res.send({ product: result });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.send("에러발생");
+    });
+});
+app.get("/product", (req, res) => {
+  models.Product.findAll({
+  limit:4,
+	// 'ASC','DESC'
+	order:[['id','DESC']],
+	attributes:["id","price","p_name","p_sdate","p_edate","p_country","p_area","trans","retrans","p_snum","p_enum","departure","redeparture","count","theme","image","hotel"]
   })
     .then((result) => {
       console.log("product 조회결과:", result);
@@ -58,7 +74,7 @@ app.get("/products/:id", (req, res) => {
 //상품생성데이터를  데이터베이스 추가
 app.post("/products", (req, res) => {
   const body = req.body;
-  const { p_name, price, p_sdate,p_edate,p_country,p_area,trans,retrans,p_snum,p_enum,departure,redeparture,count,theme,image} = body;
+  const { p_name, price, p_sdate,p_edate,p_country,p_area,trans,retrans,p_snum,p_enum,departure,redeparture,count,theme,image,hotel} = body;
   if (!p_name || !price || !p_country || !p_area || !departure || !redeparture || !trans || !retrans || !p_sdate || !p_edate || !count || !theme) {
     res.send("모든 필드를 입력해주세요");
   }
@@ -78,6 +94,7 @@ app.post("/products", (req, res) => {
     count,
     theme,
     image,
+    hotel,
   })
     .then((result) => {
       console.log("상품생성결과:", result);
