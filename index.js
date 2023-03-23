@@ -26,7 +26,7 @@ app.get("/products", (req, res) => {
   models.Product.findAll({
 	// 'ASC','DESC'
 	order:[['id','ASC']],
-	attributes:["id","price","p_name","p_sdate","p_edate","p_country","p_area","trans","retrans","p_snum","p_enum","departure","redeparture","count","theme","imageUrl","hotel"]
+	attributes:["id","price","p_name","p_sdate","p_edate","p_country","p_area","trans","retrans","p_snum","p_enum","departure","redeparture","count","theme","imageUrl","hotel","soldout",],
   })
     .then((result) => {
       console.log("product 조회결과:", result);
@@ -37,6 +37,8 @@ app.get("/products", (req, res) => {
       res.send("에러발생");
     });
 });
+// let sql=`SELECT * FROM products WHRER theme = ${theme}`;
+
 app.get("/product", (req, res) => {
   models.Product.findAll({
   limit:4,
@@ -100,6 +102,24 @@ app.post("/products", (req, res) => {
     .catch((error) => {
       console.error(error);
       //res.send("상품업로드에 문제가 발생했습니다");
+    });
+});
+app.post("/purchase/:id", (req, res) => {
+  const { id } = req.params;
+  models.Product.update(
+    {
+      soldout: 1,
+    },
+    {
+      where: { id },
+    }
+  )
+    .then((ressult) => {
+      res.send({ result: true });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("에러가 발생했습니다")
     });
 });
 
