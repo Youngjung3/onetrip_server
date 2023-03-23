@@ -37,6 +37,8 @@ app.get("/products", (req, res) => {
       res.send("에러발생");
     });
 });
+// let sql=`SELECT * FROM products WHRER theme = ${theme}`;
+
 app.get("/product", (req, res) => {
   models.Product.findAll({
   limit:4,
