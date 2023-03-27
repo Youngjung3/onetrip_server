@@ -56,14 +56,17 @@ app.get("/product", (req, res) => {
     });
 });
 app.get("/producttheme", (req, res) => {
+  const sql = "SELECT p_name, price, imageUrl, theme FROM 'product' WHERE 'theme'=?";
+  const params = req.query.idx;
   models.Product.findAll({
-    limit: 4,
+    // limit: 5,
     // 'ASC','DESC'
-    order: [['id', 'DESC']],
-    attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel","soldout"],
-    where:{
-      theme:theme,
-    }
+    order: [['price', 'ASC']],
+    // attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel","soldout"],
+    attributes: ["theme","id", "price", "p_name", "count", "imageUrl", "hotel","soldout"],
+    // where:{
+    //   theme:theme,
+    // }
   })
     .then((result) => {
       console.log("product 조회결과:", result);
