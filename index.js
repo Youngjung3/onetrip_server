@@ -1,32 +1,32 @@
 const express = require("express");
 const cors = require("cors");
 const models = require("./models");
-const multer=require("multer");
+const multer = require("multer");
 
 const app = express();
 const port = process.env.PORT || 8080;
 
-const upload=multer({
-  storage:multer.diskStorage({
-    destination:function(req,file,cb){
-      cb(null,"upload/");
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, "upload/");
     },
-    filename:function(req,file,cb){
-      cb(null,file.originalname);
+    filename: function (req, file, cb) {
+      cb(null, file.originalname);
     },
   }),
 });
 
 app.use(express.json());
 app.use(cors());
-app.use("/upload",express.static("upload"));
+app.use("/upload", express.static("upload"));
 
 
 app.get("/products", (req, res) => {
   models.Product.findAll({
-	// 'ASC','DESC'
-	order:[['id','ASC']],
-	attributes:["id","price","p_name","p_sdate","p_edate","p_country","p_area","trans","retrans","p_snum","p_enum","departure","redeparture","count","theme","imageUrl","hotel","soldout",],
+    // 'ASC','DESC'
+    order: [['id', 'ASC']],
+    attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel", "soldout",],
   })
     .then((result) => {
       console.log("product 조회결과:", result);
@@ -41,10 +41,29 @@ app.get("/products", (req, res) => {
 
 app.get("/product", (req, res) => {
   models.Product.findAll({
-  limit:4,
-	// 'ASC','DESC'
-	order:[['id','DESC']],
-	attributes:["id","price","p_name","p_sdate","p_edate","p_country","p_area","trans","retrans","p_snum","p_enum","departure","redeparture","count","theme","imageUrl","hotel"]
+    limit: 4,
+    // 'ASC','DESC'
+    order: [['id', 'DESC']],
+    attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel", "soldout"],
+  })
+    .then((result) => {
+      console.log("product 조회결과:", result);
+      res.send({ product: result });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.send("에러발생");
+    });
+});
+app.get("/producttheme", (req, res) => {
+  models.Product.findAll({
+    limit: 4,
+    // 'ASC','DESC'
+    order: [['id', 'DESC']],
+    attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel","soldout"],
+    where:{
+      theme:theme,
+    }
   })
     .then((result) => {
       console.log("product 조회결과:", result);
@@ -70,13 +89,13 @@ app.get("/products/:id", (req, res) => {
     })
     .catch((error) => {
       console.error(error);
-	  res.send("상품조회시 에러가 발생했습니다");
+      res.send("상품조회시 에러가 발생했습니다");
     });
 });
 //상품생성데이터를  데이터베이스 추가
 app.post("/products", (req, res) => {
   const body = req.body;
-  const { p_name, price, p_sdate,p_edate,p_country,p_area,trans,retrans,p_snum,p_enum,departure,redeparture,count,theme,imageUrl,hotel} = body;
+  const { p_name, price, p_sdate, p_edate, p_country, p_area, trans, retrans, p_snum, p_enum, departure, redeparture, count, theme, imageUrl, hotel } = body;
   models.Product.create({
     p_name,
     price,
@@ -126,11 +145,11 @@ app.post("/purchase/:id", (req, res) => {
 app.post("/login", (req, res) => {
   res.send("로그인이 완료되었습니다");
 });
-app.post('/image',upload.single('image'),(req,res)=>{
-  const file=req.file;
+app.post('/image', upload.single('image'), (req, res) => {
+  const file = req.file;
   console.log(file);
   res.send({
-    imageUrl:file.path
+    imageUrl: file.path
   });
 });
 //app 실행
