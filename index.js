@@ -43,7 +43,7 @@ app.get("/product", (req, res) => {
     limit: 4,
     // 'ASC','DESC'
     order: [["id", "DESC"]],
-    attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel", "soldout", "heart","start","end"],
+    attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel", "soldout", "heart", "start", "end"],
   })
     .then((result) => {
       console.log("product 조회결과:", result);
@@ -79,7 +79,7 @@ app.get("/productdate", (req, res) => {
     limit: 6,
     // 'ASC','DESC'
     order: [["p_sdate", "ASC"]],
-    attributes: ["id", "price", "p_name", "count", "imageUrl", "soldout", "p_sdate", "p_edate", "departure", "redeparture", "heart","start","end"],
+    attributes: ["id", "price", "p_name", "count", "imageUrl", "soldout", "p_sdate", "p_edate", "departure", "redeparture", "heart" ,"start", "end"],
   })
     .then((result) => {
       console.log("product 조회결과:", result);
