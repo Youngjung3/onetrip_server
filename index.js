@@ -178,12 +178,11 @@ app.post("/purchase/:id", (req, res) => {
 
 /******************* review ********************/
 app.get("/reviews", (req, res) => {
-  models.review
-    .findAll({
-      // 'ASC','DESC'
-      order: [["id", "ASC"]],
-      attributes: ["id", "user_name", "r_title", "r_text", "r_area", "r_imageUrl"],
-    })
+  models.Review.findAll({
+    // 'ASC','DESC'
+    order: [["id", "ASC"]],
+    attributes: ["id", "user_name", "r_title", "r_text", "r_area", "r_imageUrl"],
+  })
     .then((result) => {
       console.log("reviews 조회결과:", result);
       res.send({ review: result });
@@ -195,13 +194,12 @@ app.get("/reviews", (req, res) => {
 });
 
 app.get("/review", (req, res) => {
-  models.review
-    .findAll({
-      limit: 4,
-      // 'ASC','DESC'
-      order: [["id", "DESC"]],
-      attributes: ["id", "user_name", "r_title", "r_text", "r_area", "r_imageUrl"],
-    })
+  models.Review.findAll({
+    limit: 4,
+    // 'ASC','DESC'
+    order: [["id", "DESC"]],
+    attributes: ["id", "user_name", "r_title", "r_text", "r_area", "r_imageUrl"],
+  })
     .then((result) => {
       console.log("review 조회결과:", result);
       res.send({ review: result });
@@ -215,14 +213,13 @@ app.get("/review", (req, res) => {
 app.post("/reviews", (req, res) => {
   const body = req.body;
   const { user_name, r_title, r_text, r_area, r_imageUrl } = body;
-  models.review
-    .create({
-      user_name,
-      r_title,
-      r_text,
-      r_area,
-      r_imageUrl,
-    })
+  models.Review.create({
+    user_name,
+    r_title,
+    r_text,
+    r_area,
+    r_imageUrl,
+  })
     .then((result) => {
       console.log("상품생성결과테스트:", result);
       res.send({ result });
