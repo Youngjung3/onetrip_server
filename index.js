@@ -57,7 +57,7 @@ app.get("/product", (req, res) => {
 });
 app.get("/producttheme", (req, res) => {
   models.Product.findAll({
-    // limit: 5,
+    // limit: 12,
     // 'ASC','DESC'
     order: [['price', 'ASC']],
     // attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel","soldout"],
