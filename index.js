@@ -25,7 +25,7 @@ app.get("/products", (req, res) => {
   models.Product.findAll({
     // 'ASC','DESC'
     order: [["id", "ASC"]],
-    attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel", "soldout", "heart","start","end"],
+    attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel", "soldout", "heart"],
   })
     .then((result) => {
       console.log("product 조회결과:", result);
@@ -43,7 +43,7 @@ app.get("/product", (req, res) => {
     limit: 4,
     // 'ASC','DESC'
     order: [["id", "DESC"]],
-    attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel", "soldout", "heart","start","end"],
+    attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel", "soldout", "heart"],
   })
     .then((result) => {
       console.log("product 조회결과:", result);
@@ -56,7 +56,7 @@ app.get("/product", (req, res) => {
 });
 app.get("/producttheme", (req, res) => {
   models.Product.findAll({
-    // limit: 12,
+    // limit: 5,
     // 'ASC','DESC'
     order: [["price", "ASC"]],
     // attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel","soldout"],
@@ -79,7 +79,7 @@ app.get("/productdate", (req, res) => {
     limit: 6,
     // 'ASC','DESC'
     order: [["p_sdate", "ASC"]],
-    attributes: ["id", "price", "p_name", "count", "imageUrl", "soldout", "p_sdate", "p_edate", "departure", "redeparture", "heart","start","end"],
+    attributes: ["id", "price", "p_name", "count", "imageUrl", "soldout", "p_sdate", "p_edate", "departure", "redeparture", "heart"],
   })
     .then((result) => {
       console.log("product 조회결과:", result);
@@ -129,7 +129,7 @@ app.get("/productt/:p_area", (req, res) => {
 //상품생성데이터를  데이터베이스 추가
 app.post("/products", (req, res) => {
   const body = req.body;
-  const { p_name, price, p_sdate, p_edate, p_country, p_area, trans, retrans, p_snum, p_enum, departure, redeparture, count, theme, imageUrl, hotel, start, end } = body;
+  const { p_name, price, p_sdate, p_edate, p_country, p_area, trans, retrans, p_snum, p_enum, departure, redeparture, count, theme, imageUrl, hotel } = body;
   models.Product.create({
     p_name,
     price,
@@ -147,8 +147,6 @@ app.post("/products", (req, res) => {
     theme,
     imageUrl,
     hotel,
-    start,
-    end,
   })
     .then((result) => {
       console.log("상품생성결과테스트:", result);
@@ -180,11 +178,12 @@ app.post("/purchase/:id", (req, res) => {
 
 /******************* review ********************/
 app.get("/reviews", (req, res) => {
-  models.Review.findAll({
-    // 'ASC','DESC'
-    order: [["id", "ASC"]],
-    attributes: ["id", "user_name", "r_title", "r_text", "r_area", "r_imageUrl"],
-  })
+  models.Review
+    .findAll({
+      // 'ASC','DESC'
+      order: [["id", "ASC"]],
+      attributes: ["id", "user_name", "r_title", "r_text", "r_area", "r_imageUrl"],
+    })
     .then((result) => {
       console.log("reviews 조회결과:", result);
       res.send({ review: result });
@@ -196,12 +195,13 @@ app.get("/reviews", (req, res) => {
 });
 
 app.get("/review", (req, res) => {
-  models.Review.findAll({
-    limit: 4,
-    // 'ASC','DESC'
-    order: [["id", "DESC"]],
-    attributes: ["id", "user_name", "r_title", "r_text", "r_area", "r_imageUrl"],
-  })
+  models.Review
+    .findAll({
+      limit: 4,
+      // 'ASC','DESC'
+      order: [["id", "DESC"]],
+      attributes: ["id", "user_name", "r_title", "r_text", "r_area", "r_imageUrl"],
+    })
     .then((result) => {
       console.log("review 조회결과:", result);
       res.send({ review: result });
@@ -215,13 +215,14 @@ app.get("/review", (req, res) => {
 app.post("/reviews", (req, res) => {
   const body = req.body;
   const { user_name, r_title, r_text, r_area, r_imageUrl } = body;
-  models.Review.create({
-    user_name,
-    r_title,
-    r_text,
-    r_area,
-    r_imageUrl,
-  })
+  models.Review
+    .create({
+      user_name,
+      r_title,
+      r_text,
+      r_area,
+      r_imageUrl,
+    })
     .then((result) => {
       console.log("상품생성결과테스트:", result);
       res.send({ result });
@@ -240,6 +241,8 @@ app.post("/image", upload.single("image"), (req, res) => {
   console.log(file);
   res.send({
     imageUrl: file.path,
+    r_imageUrl: file.path,
+    
   });
 });
 
