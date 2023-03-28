@@ -26,7 +26,7 @@ app.get("/products", (req, res) => {
   models.Product.findAll({
     // 'ASC','DESC'
     order: [['id', 'ASC']],
-    attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel", "soldout",],
+    attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel", "soldout","heart",],
   })
     .then((result) => {
       console.log("product 조회결과:", result);
@@ -44,7 +44,7 @@ app.get("/product", (req, res) => {
     limit: 4,
     // 'ASC','DESC'
     order: [['id', 'DESC']],
-    attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel", "soldout"],
+    attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel", "soldout","heart",],
   })
     .then((result) => {
       console.log("product 조회결과:", result);
@@ -56,17 +56,31 @@ app.get("/product", (req, res) => {
     });
 });
 app.get("/producttheme", (req, res) => {
-  const sql = "SELECT p_name, price, imageUrl, theme FROM 'product' WHERE 'theme'=?";
-  const params = req.query.idx;
   models.Product.findAll({
     // limit: 5,
     // 'ASC','DESC'
     order: [['price', 'ASC']],
     // attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel","soldout"],
-    attributes: ["theme","id", "price", "p_name", "count", "imageUrl", "hotel","soldout"],
+    attributes: ["theme","id", "price", "p_name", "count", "imageUrl", "hotel","soldout","heart",],
     // where:{
     //   theme:theme,
     // }
+  })
+    .then((result) => {
+      console.log("product 조회결과:", result);
+      res.send({ product: result });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.send("에러발생");
+    });
+});
+app.get("/productdate", (req, res) => {
+  models.Product.findAll({
+    limit: 6,
+    // 'ASC','DESC'
+    order: [['p_sdate', 'ASC']],
+    attributes: ["id", "price", "p_name", "count", "imageUrl", "soldout", "p_sdate", "p_edate", "departure", "redeparture","heart"],
   })
     .then((result) => {
       console.log("product 조회결과:", result);
@@ -83,6 +97,23 @@ app.get("/products/:id", (req, res) => {
   const { id } = params;
   models.Product.findOne({
     where: { id: id },
+  })
+    .then((result) => {
+      console.log("조회결과");
+      res.send({
+        product: result,
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.send("상품조회시 에러가 발생했습니다");
+    });
+});
+app.get("/productt/:p_area", (req, res) => {
+  const params = req.params;
+  const { p_area } = params;
+  models.Product.findAll({
+    where: { p_area: p_area },
   })
     .then((result) => {
       console.log("조회결과");

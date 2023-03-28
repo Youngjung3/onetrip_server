@@ -33,6 +33,15 @@ module.exports = (sequelize, DataTypes) => {
 			type: DataTypes.INTEGER(30),
 			allowNull: true,
 		},
+		imageUrl: {
+			type: DataTypes.STRING(300),
+			allowNull: true,
+		},
+		l_state:{
+			type:DataTypes.INTEGER(1),
+			allowNull:false,
+			defaultValue:0,
+		},
 	});
   return customer;
 };
