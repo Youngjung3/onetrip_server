@@ -75,6 +75,14 @@ module.exports = (sequelize, DataTypes) => {
 			allowNull:false,
 			defaultValue:0,
 		},
+		start: {
+			type: DataTypes.STRING(20),
+			allowNull: false,
+		},
+		end: {
+			type: DataTypes.STRING(20),
+			allowNull: false,
+		},
 	});
   return product;
 };
