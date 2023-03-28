@@ -21,12 +21,11 @@ app.use(express.json());
 app.use(cors());
 app.use("/upload", express.static("upload"));
 
-
 app.get("/products", (req, res) => {
   models.Product.findAll({
     // 'ASC','DESC'
-    order: [['id', 'ASC']],
-    attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel", "soldout","heart",],
+    order: [["id", "ASC"]],
+    attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel", "soldout", "heart","start","end"],
   })
     .then((result) => {
       console.log("product 조회결과:", result);
@@ -43,8 +42,8 @@ app.get("/product", (req, res) => {
   models.Product.findAll({
     limit: 4,
     // 'ASC','DESC'
-    order: [['id', 'DESC']],
-    attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel", "soldout","heart",],
+    order: [["id", "DESC"]],
+    attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel", "soldout", "heart","start","end"],
   })
     .then((result) => {
       console.log("product 조회결과:", result);
@@ -59,9 +58,9 @@ app.get("/producttheme", (req, res) => {
   models.Product.findAll({
     // limit: 12,
     // 'ASC','DESC'
-    order: [['price', 'ASC']],
+    order: [["price", "ASC"]],
     // attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel","soldout"],
-    attributes: ["theme","id", "price", "p_name", "count", "imageUrl", "hotel","soldout","heart",],
+    attributes: ["theme", "id", "price", "p_name", "count", "imageUrl", "hotel", "soldout", "heart"],
     // where:{
     //   theme:theme,
     // }
@@ -79,8 +78,8 @@ app.get("/productdate", (req, res) => {
   models.Product.findAll({
     limit: 6,
     // 'ASC','DESC'
-    order: [['p_sdate', 'ASC']],
-    attributes: ["id", "price", "p_name", "count", "imageUrl", "soldout", "p_sdate", "p_edate", "departure", "redeparture","heart"],
+    order: [["p_sdate", "ASC"]],
+    attributes: ["id", "price", "p_name", "count", "imageUrl", "soldout", "p_sdate", "p_edate", "departure", "redeparture", "heart","start","end"],
   })
     .then((result) => {
       console.log("product 조회결과:", result);
@@ -126,10 +125,11 @@ app.get("/productt/:p_area", (req, res) => {
       res.send("상품조회시 에러가 발생했습니다");
     });
 });
+
 //상품생성데이터를  데이터베이스 추가
 app.post("/products", (req, res) => {
   const body = req.body;
-  const { p_name, price, p_sdate, p_edate, p_country, p_area, trans, retrans, p_snum, p_enum, departure, redeparture, count, theme, imageUrl, hotel } = body;
+  const { p_name, price, p_sdate, p_edate, p_country, p_area, trans, retrans, p_snum, p_enum, departure, redeparture, count, theme, imageUrl, hotel, start, end } = body;
   models.Product.create({
     p_name,
     price,
@@ -147,6 +147,8 @@ app.post("/products", (req, res) => {
     theme,
     imageUrl,
     hotel,
+    start,
+    end,
   })
     .then((result) => {
       console.log("상품생성결과테스트:", result);
@@ -172,20 +174,78 @@ app.post("/purchase/:id", (req, res) => {
     })
     .catch((error) => {
       console.error(error);
-      res.status(500).send("에러가 발생했습니다")
+      res.status(500).send("에러가 발생했습니다");
+    });
+});
+
+/******************* review ********************/
+app.get("/reviews", (req, res) => {
+  models.review
+    .findAll({
+      // 'ASC','DESC'
+      order: [["id", "ASC"]],
+      attributes: ["id", "user_name", "r_title", "r_text", "r_area", "r_imageUrl"],
+    })
+    .then((result) => {
+      console.log("reviews 조회결과:", result);
+      res.send({ review: result });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.send("에러발생");
+    });
+});
+
+app.get("/review", (req, res) => {
+  models.review
+    .findAll({
+      limit: 4,
+      // 'ASC','DESC'
+      order: [["id", "DESC"]],
+      attributes: ["id", "user_name", "r_title", "r_text", "r_area", "r_imageUrl"],
+    })
+    .then((result) => {
+      console.log("review 조회결과:", result);
+      res.send({ review: result });
+    })
+    .catch((err) => {
+      console.error(err);
+      res.send("에러발생");
+    });
+});
+
+app.post("/reviews", (req, res) => {
+  const body = req.body;
+  const { user_name, r_title, r_text, r_area, r_imageUrl } = body;
+  models.review
+    .create({
+      user_name,
+      r_title,
+      r_text,
+      r_area,
+      r_imageUrl,
+    })
+    .then((result) => {
+      console.log("상품생성결과테스트:", result);
+      res.send({ result });
+    })
+    .catch((error) => {
+      console.error(error);
+      //res.send("상품업로드에 문제가 발생했습니다");
     });
 });
 
 app.post("/login", (req, res) => {
   res.send("로그인이 완료되었습니다");
 });
-app.post('/image', upload.single('image'), (req, res) => {
+app.post("/image", upload.single("image"), (req, res) => {
   const file = req.file;
   console.log(file);
   res.send({
-    imageUrl: file.path
+    imageUrl: file.path,
   });
 });
+
 //app 실행
 app.listen(port, () => {
   console.log("OneTrip의 서버가 돌아가고 있습니다.");
