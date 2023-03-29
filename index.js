@@ -125,11 +125,11 @@ app.get("/productt/:p_area", (req, res) => {
       res.send("상품조회시 에러가 발생했습니다");
     });
 });
-app.get("/like/:heart", (req, res) => {
+app.get("/likepage/:heart", (req, res) => {
   const params = req.params;
-  const { heart } = params;
+  // const { heart } = params;
   models.Product.findAll({
-    where: { heart: heart },
+    where: { heart: 1 },
   })
     .then((result) => {
       console.log("조회결과");
