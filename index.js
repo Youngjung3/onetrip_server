@@ -125,6 +125,23 @@ app.get("/productt/:p_area", (req, res) => {
       res.send("상품조회시 에러가 발생했습니다");
     });
 });
+app.get("/like/:heart", (req, res) => {
+  const params = req.params;
+  const { heart } = params;
+  models.Product.findAll({
+    where: { heart: heart },
+  })
+    .then((result) => {
+      console.log("조회결과");
+      res.send({
+        product: result,
+      });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.send("상품조회시 에러가 발생했습니다");
+    });
+});
 
 //상품생성데이터를  데이터베이스 추가
 app.post("/products", (req, res) => {
@@ -162,6 +179,42 @@ app.post("/purchase/:id", (req, res) => {
   models.Product.update(
     {
       soldout: 1,
+    },
+    {
+      where: { id },
+    }
+  )
+    .then((ressult) => {
+      res.send({ result: true });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("에러가 발생했습니다");
+    });
+});
+app.post("/heart/:id", (req, res) => {
+  const { id } = req.params;
+  models.Product.update(
+    {
+      heart: 1,
+    },
+    {
+      where: { id },
+    }
+  )
+    .then((ressult) => {
+      res.send({ result: true });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("에러가 발생했습니다");
+    });
+});
+app.post("/heart2/:id", (req, res) => {
+  const { id } = req.params;
+  models.Product.update(
+    {
+      heart: 0,
     },
     {
       where: { id },
