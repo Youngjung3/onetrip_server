@@ -50,17 +50,10 @@
 🌵 정이진 – [ejin1018](https://github.com/ejin1018)     
 
 [https://github.com/Youngjung3/onetrip_server.git](https://github.com/Youngjung3/onetrip_server)
+<br>
 [https://github.com/kimminjung96/OneTrip](https://github.com/kimminjung96/OneTrip)
 
 <br>
-
-
-## 👀 구성원
-
-🌳 김민정 – [kimminjung96](https://github.com/kimminjung96)     
-🌼 김영중 – [Youngjung3](https://github.com/Youngjung3)     
-🍀 김인혜 – [ihkim8](https://github.com/ihkim8)     
-🌵 정이진 – [ejin1018](https://github.com/ejin1018)     
 
 ## 🧰 역할 배분
 

@@ -60,7 +60,7 @@ app.get("/producttheme", (req, res) => {
     // 'ASC','DESC'
     order: [["price", "ASC"]],
     // attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel","soldout"],
-    attributes: ["theme", "id", "price", "p_name", "count", "imageUrl", "hotel", "soldout", "heart"],
+    attributes: ["theme", "id", "price", "p_name", "count", "imageUrl", "hotel", "soldout", "heart", "p_area"],
     // where:{
     //   theme:theme,
     // }
