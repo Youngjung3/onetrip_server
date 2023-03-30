@@ -1,23 +1,7 @@
 # [서버] 원트립 - One Trip server 
-> 혼자라서 충분한 여행, 원트립입니다.
 
-
-원트립은 혼자 여행을 즐기는 사람들을 위한 여행 상품 판매 페이지의 서버입니다.     
-문화생활, 맛집탐방, 액티비티, 휴식, 쇼핑 다섯가지 테마에 맞는 여행을 제안하며,     
-상품 등록, 품절, 결제, 찜, 검색, 후기 작성 기능을 제공합니다.     
-
-![](./public/images/main-screenshot.png)
-
-## 🔗 배포 링크
-[서버](https://port-0-onetrip-server-nx562olfc8wgdo.sel3.cloudtype.app/products)
-[원트립](https://onetrip-kimminjung96.vercel.app/)
-
-<br>
-
-## ⏲ 개발 기간
-2023년 03월 07일 ~ 2023년 03월 31일
-
-<br>
+![npm-image][npm-image] ![React-image][React-image] ![React-router-dom][React-router-dom] ![axios-image][axios-image] ![sass-image][sass-image]
+![antd-image][antd-image]
 
 ## 🛠 기술 스택
 
@@ -27,6 +11,33 @@
 ![nodemon][nodemon-image]     
 ![sequelize][sql-image]
 ![sqlite3][sql-image]
+
+<br>
+
+### 🔗 [원트립 바로가기](https://onetrip-kimminjung96.vercel.app/)
+### 🔗 [원트립 깃허브 바로가기](https://github.com/kimminjung96/OneTrip)
+### 🔗 [원트립 백앤드 URL 바로가기](https://onetrip-kimminjung96.vercel.app/)
+
+<br>
+
+> PWA 앱으로 제작한 풀스택 프로젝트입니다.     
+> 프론트는 React를 사용해 제작했으며, Node JS의 Express를 활용해 백엔드 서버를 구현하였고,     
+> Sequelize를 사용하여 데이터베이스 모델링을 진행했습니다.
+
+<br>
+
+> 혼자라서 충분한 여행, 원트립입니다.
+
+원트립은 혼자 여행을 즐기는 사람들을 위한 여행 상품 판매 페이지의 서버입니다.     
+문화생활, 맛집탐방, 액티비티, 휴식, 쇼핑 다섯가지 테마에 맞는 여행을 제안하며,     
+상품 등록, 품절, 결제, 찜, 검색, 후기 작성 기능을 제공합니다.     
+
+![](./public/images/main-screenshot.png)
+
+<br>
+
+## ⏲ 개발 기간
+2023년 03월 07일 ~ 2023년 03월 31일
 
 <br>
 
@@ -42,6 +53,14 @@
 [https://github.com/kimminjung96/OneTrip](https://github.com/kimminjung96/OneTrip)
 
 <br>
+
+
+## 👀 구성원
+
+🌳 김민정 – [kimminjung96](https://github.com/kimminjung96)     
+🌼 김영중 – [Youngjung3](https://github.com/Youngjung3)     
+🍀 김인혜 – [ihkim8](https://github.com/ihkim8)     
+🌵 정이진 – [ejin1018](https://github.com/ejin1018)     
 
 ## 🧰 역할 배분
 
@@ -83,6 +102,10 @@
 #### SearchPage `상품 검색`
 ✔ 검색창에 입력 시 상품 이름과 지역 분류에서 동일한 값을 찾아 결과를 반환     
 
+#### SearchPage `상품 찜하기`
+✔ get api를 이용해 데이터 렌더링     
+✔ 데이터 중 heart를 이용해 선택된 상품에 표시    
+
 <br>
 
 ## 개발 환경 설정
@@ -104,8 +127,3 @@ npm i sqlite3
 [React-router-dom]:https://img.shields.io/badge/React--router--dom-v6.9.0-BLUE?logo=React-Router
 [axios-image]:https://img.shields.io/badge/axios-v1.3.4-red?logo=axios
 [sass-image]:https://img.shields.io/badge/sass-v1.59.3-orange?logo=sass
-
-
-<!-- [npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
-[npm-url]: https://npmjs.org/package/datadog-metrics
-[npm-downloads]: https://img.shields.io/npm/dm/datadog-metrics.svg?style=flat-square -->
