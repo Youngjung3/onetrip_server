@@ -94,7 +94,7 @@
 
 <br>
 
-## 💎 Request Parameter
+## 💎 models
 ### 👉 Product
 | Name         | allowNull    | Type   | Default            | 
 | ------------ | ------------ |--------|---------------     | 
