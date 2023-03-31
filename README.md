@@ -1,22 +1,18 @@
 # [서버] 원트립 - One Trip server 
 
-![npm-image][npm-image] ![React-image][React-image] ![React-router-dom][React-router-dom] ![axios-image][axios-image] ![sass-image][sass-image]
-![antd-image][antd-image]
 
 ## 🛠 기술 스택
+![Express-image][Express-image] ![Node.js-image][Node.js-image] ![Nodemon-image][Nodemon-image] ![Sequelize-image][Sequelize-image] ![SQLite3-image][SQLite3-image]
 
-![cors][cors]     
-![express][express]     
-![multer][multer]     
-![nodemon][nodemon-image]     
-![sequelize][sql-image]
-![sqlite3][sql-image]
+
 
 <br>
 
-### 🔗 [원트립 바로가기](https://onetrip-kimminjung96.vercel.app/)
-### 🔗 [원트립 깃허브 바로가기](https://github.com/kimminjung96/OneTrip)
-### 🔗 [원트립 백앤드 URL 바로가기](https://onetrip-kimminjung96.vercel.app/)
+### 🔗 [원트립 사이트 바로가기](https://onetrip-kimminjung96.vercel.app/)
+### 🔗 [원트립 프론트 깃허브 바로가기](https://github.com/kimminjung96/OneTrip)
+
+### 🔗 [원트립 백앤드 URL 바로가기](https://port-0-onetrip-server-nx562olfc8wgdo.sel3.cloudtype.app/)
+### 🔗 [원트립 백앤드 깃허브 바로가기](https://github.com/Youngjung3/onetrip_server)
 
 <br>
 
@@ -49,9 +45,6 @@
 🍀 김인혜 – [ihkim8](https://github.com/ihkim8)     
 🌵 정이진 – [ejin1018](https://github.com/ejin1018)     
 
-[https://github.com/Youngjung3/onetrip_server.git](https://github.com/Youngjung3/onetrip_server)
-<br>
-[https://github.com/kimminjung96/OneTrip](https://github.com/kimminjung96/OneTrip)
 
 <br>
 
@@ -75,36 +68,72 @@
 
 <br>
 
-## 💎 구현 목록
+## 💎 Rest API
+### 🔗 [원트립 백앤드 상품URL 바로가기](https://port-0-onetrip-server-nx562olfc8wgdo.sel3.cloudtype.app/products)
+### 🔗 [원트립 백앤드 리뷰URL 바로가기](https://port-0-onetrip-server-nx562olfc8wgdo.sel3.cloudtype.app/reviews)
 
-#### ReconSlider `테마별 분류`
-✔ select 에서 값을 선택     
-✔ 선택된 값을 기준으로 데이터 중 theme (테마)와 일치하는 상품을 반환     
 
-#### Productt `지역명 분류`
-✔ 데이터 중 p_area (지역명) 을 기준으로 분류된 상품을 반환     
+| Method     | Request                     | Format    | Description                 | 
+| ---------- | --------------------------- |---------- |---------------              | 
+| GET        | /products                   | JSON      | 모든 관광상품 조회            | 
+| GET        | /product                    | JSON      | 4개의 상품조회                | 
+| GET        | /producttheme               | JSON      | 테마 조회                     | 
+| GET        | /productdate                | JSON      | 최신상품 조회                 | 
+| GET        | /products/:id               | JSON      | 상품 상세                     | 
+| GET        | /productt/:p_area           | JSON      | 지역별 상품                   | 
+| GET        | /likepage/:heart            | JSON      | 찜한 상품 조회                | 
+| GET        | /reviews                    | JSON      | 모든 리뷰 조회                | 
+| GET        | /review                     | JSON      | 하나의 리뷰 조회              | 
+| POST       | /products                   | JSON      | 상품데이터 저장               | 
+| POST       | /purchase/:id               | JSON      | soldout 저장                 | 
+| POST       | /heart/:id                  | JSON      | 찜하기 저장                   | 
+| POST       | /heart2/:id                 | JSON      | 찜하기 취소                   | 
+| POST       | /reviews                    | JSON      | 리뷰데이터 저장                | 
+| POST       | /image                      | JSON      | 이미지 데이터 저장             | 
 
-#### Create `상품 등록`
-✔ post api 를 이용해 데이터 생성     
-✔ 등록 창에서 정보를 입력받아 상품 생성 후 화면에 반환     
 
-#### Packages `상품 상세`
-✔ get api를 이용해 데이터 렌더링     
-✔ 데이터 중 id 를 이용해 선택된 상품의 정보를 반환     
-          
-#### SearchPage `상품 검색`
-✔ 검색창에 입력 시 상품 이름과 지역 분류에서 동일한 값을 찾아 결과를 반환     
+<br>
 
-#### SearchPage `상품 찜하기`
-✔ get api를 이용해 데이터 렌더링     
-✔ 데이터 중 heart를 이용해 선택된 상품에 표시    
+## 💎 Request Parameter
+### 👉 Product
+| Name         | allowNull    | Type   | Default            | 
+| ------------ | ------------ |--------|---------------     | 
+| p_name       |  false       | -      | 관광 상품명         | 
+| p_country    |  false       | -      | 관광 나라(국내,해외) | 
+| p_area       |  false       | -      | 관광 지역           | 
+| price        |  false       | -      | 관광 가격           | 
+| p_sdate      |  false       | -      | 관광시작 날짜        | 
+| p_edate      |  false       | -      | 관광끝나는 날짜      | 
+| p_snum       |  true        | -      | 출발 비행기 편명    | 
+| p_enum       |  true        | -      | 돌아오는 비행기 편명 | 
+| trans        |  false       | -      | 출발 교통수단       | 
+| retrans      |  false       | -      | 돌아오는 교통수단   | 
+| theme        |  true        | -      | 관광 테마          | 
+| imageUrl     |  true        | -      | soldout 저장       | 
+| count        |  false       | -      | 찜하기 저장         | 
+| departure    |  false       | -      | 찜하기 취소         | 
+| redeparture  |  false       | -      | 리뷰데이터 저장     | 
+| hotel        |  true        | -      | 숙박               | 
+| soldout      |  false       | 0      | 상품솔드아웃        | 
+| heart        |  false       | 0      | 찜하기              | 
+| start        |  false       | -      | 출발지              | 
+| end          |  false       | -      | 도착지              | 
+
+### 👉 Review
+| Name         | allowNull    | Type   | Default          | 
+| ------------ | ------------ |--------|---------------   | 
+| user_name    |  false       | -      | 작성자 명         | 
+| r_title      |  false       | -      | 리뷰 제목         | 
+| r_text       |  false       | -      | 리뷰 내용         | 
+| r_area       |  false       | -      | 리뷰할 지역       | 
+| r_imageUrl   |  false       | -      | 리뷰이미지        | 
+
 
 <br>
 
 ## 개발 환경 설정
 
 ```sh
-npm i
 npm i cors
 npm i express
 npm i multer
@@ -115,8 +144,8 @@ npm i sqlite3
 
 
 <!-- Markdown link & img dfn's -->
-[npm-image]:https://img.shields.io/badge/npm-v6.9.0-lightgrey?logo=npm
-[React-image]:https://img.shields.io/badge/React-v18.2.0-blue?logo=React
-[React-router-dom]:https://img.shields.io/badge/React--router--dom-v6.9.0-BLUE?logo=React-Router
-[axios-image]:https://img.shields.io/badge/axios-v1.3.4-red?logo=axios
-[sass-image]:https://img.shields.io/badge/sass-v1.59.3-orange?logo=sass
+[Express-image]:https://img.shields.io/badge/Express-v4.18.2-%23000000?logo=Express
+[Node.js-image]:https://img.shields.io/badge/Node.js-v16.19.0-%23339933?logo=Node.js
+[Nodemon-image]:https://img.shields.io/badge/Nodemon-v2.0.21-%2376D04B?logo=Nodemon
+[Sequelize-image]:https://img.shields.io/badge/Sequelize-v6.29.3-%2352B0E7?logo=Sequelize
+[SQLite3-image]:https://img.shields.io/badge/SQLite3-v5.1.6-%23003B57?logo=SQLite

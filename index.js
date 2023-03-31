@@ -56,14 +56,10 @@ app.get("/product", (req, res) => {
 });
 app.get("/producttheme", (req, res) => {
   models.Product.findAll({
-    // limit: 5,
     // 'ASC','DESC'
     order: [["price", "ASC"]],
-    // attributes: ["id", "price", "p_name", "p_sdate", "p_edate", "p_country", "p_area", "trans", "retrans", "p_snum", "p_enum", "departure", "redeparture", "count", "theme", "imageUrl", "hotel","soldout"],
     attributes: ["theme", "id", "price", "p_name", "count", "imageUrl", "hotel", "soldout", "heart", "p_area"],
-    // where:{
-    //   theme:theme,
-    // }
+
   })
     .then((result) => {
       console.log("product 조회결과:", result);
@@ -76,9 +72,10 @@ app.get("/producttheme", (req, res) => {
 });
 app.get("/productdate", (req, res) => {
   models.Product.findAll({
+    where: { soldout : 0 },
     limit: 6,
     // 'ASC','DESC'
-    order: [["p_sdate", "ASC"]],
+    order: [["count", "ASC"]],
     attributes: ["id", "price", "p_name", "count", "imageUrl", "soldout", "p_sdate", "p_edate", "departure", "redeparture", "heart" ,"start", "end"],
   })
     .then((result) => {
@@ -146,7 +143,7 @@ app.get("/likepage/:heart", (req, res) => {
 //상품생성데이터를  데이터베이스 추가
 app.post("/products", (req, res) => {
   const body = req.body;
-  const { p_name, price, p_sdate, p_edate, p_country, p_area, trans, retrans, p_snum, p_enum, departure, redeparture, count, theme, imageUrl, hotel } = body;
+  const { p_name, price, p_sdate, p_edate, p_country, p_area, trans, retrans, p_snum, p_enum, departure, redeparture, count, theme, imageUrl, hotel, start, end } = body;
   models.Product.create({
     p_name,
     price,
@@ -164,6 +161,8 @@ app.post("/products", (req, res) => {
     theme,
     imageUrl,
     hotel,
+    start,
+    end,
   })
     .then((result) => {
       console.log("상품생성결과테스트:", result);
@@ -178,7 +177,26 @@ app.post("/purchase/:id", (req, res) => {
   const { id } = req.params;
   models.Product.update(
     {
+      count: models.Sequelize.literal('count - 1'),
       soldout: 1,
+    },
+    {
+      where: { id },
+    }
+  )
+    .then((ressult) => {
+      res.send({ result: true });
+    })
+    .catch((error) => {
+      console.error(error);
+      res.status(500).send("에러가 발생했습니다");
+    });
+});
+app.post("/purchase2/:id", (req, res) => {
+  const { id } = req.params;
+  models.Product.update(
+    {
+      count: models.Sequelize.literal('count - 1'),
     },
     {
       where: { id },
