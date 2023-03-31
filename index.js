@@ -247,7 +247,7 @@ app.post("/heart2/:id", (req, res) => {
     });
 });
 
-/******************* review ********************/
+/******************* review *******************/
 app.get("/reviews", (req, res) => {
   models.Review
     .findAll({
