@@ -268,9 +268,9 @@ app.get("/reviews", (req, res) => {
 app.get("/review", (req, res) => {
   models.Review
     .findAll({
-      limit: 4,
+      limit: 1,
       // 'ASC','DESC'
-      order: [["id", "DESC"]],
+      order: [["createdAt", "DESC"]],
       attributes: ["id", "user_name", "r_title", "r_text", "r_area", "r_imageUrl","createdAt"],
     })
     .then((result) => {
