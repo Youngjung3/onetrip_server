@@ -253,7 +253,7 @@ app.get("/reviews", (req, res) => {
     .findAll({
       // 'ASC','DESC'
       order: [["id", "ASC"]],
-      attributes: ["id", "user_name", "r_title", "r_text", "r_area", "r_imageUrl"],
+      attributes: ["id", "user_name", "r_title", "r_text", "r_area", "r_imageUrl","createdAt"],
     })
     .then((result) => {
       console.log("reviews 조회결과:", result);
