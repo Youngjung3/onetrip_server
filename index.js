@@ -271,7 +271,7 @@ app.get("/review", (req, res) => {
       limit: 4,
       // 'ASC','DESC'
       order: [["id", "DESC"]],
-      attributes: ["id", "user_name", "r_title", "r_text", "r_area", "r_imageUrl"],
+      attributes: ["id", "user_name", "r_title", "r_text", "r_area", "r_imageUrl","createdAt"],
     })
     .then((result) => {
       console.log("review 조회결과:", result);
