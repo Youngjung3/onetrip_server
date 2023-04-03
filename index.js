@@ -36,10 +36,10 @@ app.get("/products", (req, res) => {
       res.send("에러발생");
     });
 });
-// let sql=`SELECT * FROM products WHRER theme = ${theme}`;
 
 app.get("/product", (req, res) => {
   models.Product.findAll({
+    where: { soldout : 0 },
     limit: 4,
     // 'ASC','DESC'
     order: [["id", "DESC"]],
@@ -170,7 +170,7 @@ app.post("/products", (req, res) => {
     })
     .catch((error) => {
       console.error(error);
-      //res.send("상품업로드에 문제가 발생했습니다");
+      // res.send("상품업로드에 문제가 발생했습니다");
     });
 });
 app.post("/purchase/:id", (req, res) => {
